@@ -18,9 +18,10 @@ def main(start_word, end_word):
  while len(q): 
   path = q[0]
   q.pop(0)
+  
         
   if end_word == path: 
-   print d[path] + "! Best path found!"
+   print d[path] + "\nBest path found! From " + start_word +" to "+ end_word
   for x in letters:
    for y in range(len(start_word)):  
     if path[y] != x:              
@@ -29,7 +30,7 @@ def main(start_word, end_word):
      alternative = str(''.join(temp))    
     if alternative in d and d[alternative] == start_word:
      q.append(alternative)
-     d[alternative] = d[path] + '\n -> ' + alternative
+     d[alternative] = d[path] + '\n' + alternative
 
 if __name__=='__main__':
     main('snakes', 'brains')
