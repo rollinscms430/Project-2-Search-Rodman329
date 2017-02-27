@@ -5,7 +5,7 @@ from copy import copy
 
 possible = {}
 poss_positions = {}
-neighbor = {}
+nextMove = {}
 
 
 f=open ("words.txt")
@@ -28,15 +28,23 @@ for line in f:
 for column in range (len(grid)):
     for row in range (len(grid)):
         position = tuple([row, column])
-        poss_positions [position] = grid [row][column]    
+        poss_positions [position] = grid [row][column]
 
 print poss_positions
 
-#print poss_positions [0,2]
 
 
 def neighbors():
-    for position in grid:
+    nextMove = {position: [] for position in poss_position}
+    for position in poss_position:
         moves =  [ [(row-1,column-1),(row-1,column),(row-1,column+1)],
 				   [(row,column-1), (row,column+1)],
 				   [(row+1,column-1),(row+1,column) ,(row+1,column+1)] ]
+    for out in moves: 
+	   if 0<= pos[1] < 4 and 0 <= pos [0] < 4:
+	        result[moves].append(out)
+    return nextMove
+
+
+#if word in f:
+ #   print word
