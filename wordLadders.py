@@ -1,37 +1,35 @@
-#Jerry Abril and Roderick Zak
-#word_ladders
-#2017
+# Jerry Abril and Roderick Zak
+# 2017
 
-def wordLadders (start_word, end_word):
- f = open ("words.txt")
- path = []
+from copy import copy
+
+def main(start_word, end_word):
+ f = open('words.txt')
  d = {}
- queue = [start_word]
- letters = 'abcdefghijklmnopqrstuvwxyz'
+ q = [start_word]
+ letters = 'abcdefghijklmnopqrstuvwxyz' 
     
  for line in f:
-  word = line [:-1]
-  if len(word) == len (start_word):
-   d[word] = word
+  if len(line) == len(start_word)+1:
+   line = line.strip ()
+   for i in start_word:
+    d[line] = start_word
+                
+ while len(q): 
+  path = q[0]
+  q.pop(0)
+        
+  if end_word == path: 
+   print d[path] + "! Best path found!"
+  for x in letters:
+   for y in range(len(start_word)):  
+    if path[y] != x:              
+     temp = list(path)           
+     temp[y] = x              
+     alternative = str(''.join(temp))    
+    if alternative in d and d[alternative] == start_word:
+     q.append(alternative)
+     d[alternative] = d[path] + '\n -> ' + alternative
 
- queue = [start_word]
- path.append(start_word)
- 
- while len(queue):
-  variable = queue [0]
-  queue.pop (0)
-  
- if variable == end_word:
-  return path
- for x in range (len(start_word)):
-  for y in letters:
-   if variable[x] != y:
-    nu = list (variable)
-    nu[x] = y
-    blah = str(''.join(nu))
-    if blah[:len(variable)] in d:
-     queue.append(blah)
-     path.append(blah)
-     print blah
-
-print wordLadders('snakes', 'brains')
+if __name__=='__main__':
+    main('snakes', 'brains')
