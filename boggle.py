@@ -41,7 +41,7 @@ def generate_prefix():
     
 def loc(matrix, c, r):
     return matrix [c][r]
-   
+
    
 def valid_moves(matrix, c, r):
     valid_move_set=[]
@@ -100,30 +100,49 @@ def valid_moves(matrix, c, r):
     return valid_move_set
     
 
+# recursive search method for a given cell value
+# adds the given cell to a global list of visited cells
+# generates all possible moves from that cell
+# if there is a possible move which is not visited,
+# call the search method on the cell corresponding to that move
+# if there are no possible unvisited moves, 
+# return the visited list as the word which has been constructed
 def search(cell):
     global visited
-    global word
     global found_words
+    global word
     grid = generate_grid()
     visited.append(cell)
     valid_move_set = valid_moves(grid, cell[0], cell[1])
-    word += loc(grid,cell[0],cell[1])
-    print word
+    print "valid moves for %d, %d are" % (cell[0], cell[1])
     print valid_move_set
-    print visited
+    word += loc(grid,cell[0],cell[1])
+    # print word
+    # print valid_move_set
+    # print visited
     loopval = len(valid_move_set)
-    print loopval
     # if word is in dictionary, add word to found_words
-    for i in range(loopval):
-        print "vms V"
-        print valid_move_set
-        print "vms[i] V"
-        print valid_move_set[i]
+    for i in range(len(valid_move_set)):
+        more_moves = 0
+        print "cell is "
+        print cell
         if(valid_move_set[i] not in visited):
+            print cell
+            print "word is %s, valid move set is" % word
+            print valid_move_set
             print valid_move_set[i]
+            print "not in"
+            print visited
+            print "i ="
+            print i
+            print "calling search"
+            more_moves = 1
             search(valid_move_set[i])
-        else:
-            return word
+    if(more_moves == 0):
+        print "moves exhausted, word is %s" % word
+        print valid_move_set[i]
+        print visited
+        return word
         
     
 
